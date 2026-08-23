@@ -1,0 +1,87 @@
+generated: '2026-08-23'
+method: derived
+source: openapi/_original/impulse-dynamics-wp-rest-openapi.yml + live probes 2026-08-23
+standards:
+- id: openapi-3.1
+  conforms: true
+  evidence: >-
+    openapi/_original/impulse-dynamics-wp-rest-openapi.yml is a valid OpenAPI 3.1.0 document, derived
+    by API Evangelist from the provider's own route-discovery response. NOTE: the provider does not
+    publish this document — it is our derivation of their live surface.
+- id: mcp
+  conforms: true
+  evidence: >-
+    Two live Model Context Protocol servers at /wp-json/mcp/mcp-oauth-server and
+    /wp-json/mcp/mcp-adapter-default-server, advertised by the site's own discovery document. Both
+    return an MCP-shaped 401 to anonymous JSON-RPC, confirming an MCP handler is mounted.
+- id: oauth2
+  conforms: partial
+  evidence: >-
+    The mcp-oauth-server endpoint enforces bearer authentication (HTTP 401 mcp_unauthorized), so an
+    OAuth guard is deployed, but no authorization-server metadata is published and no flow,
+    token endpoint or scope set is discoverable.
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: false
+  evidence: https://impulse-dynamics.com/.well-known/oauth-authorization-server returned HTTP 404 on 2026-08-23.
+- id: rfc9728-oauth-protected-resource-metadata
+  conforms: false
+  evidence: https://impulse-dynamics.com/.well-known/oauth-protected-resource returned HTTP 404 on 2026-08-23.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returned HTTP 404 on 2026-08-23.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors use the WordPress envelope {code,message,data.status} with content-type application/json,
+    not application/problem+json. See errors/impulse-dynamics-problem-types.yml.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: >-
+    /.well-known/security.txt returned HTTP 404 on 2026-08-23, even though the company publishes a
+    full vulnerability disclosure programme as an HTML page.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset or Deprecation header observed; no deprecation policy published.
+- id: pagination
+  conforms: true
+  evidence: 'page / per_page (default 10, max 100) / offset, with X-WP-Total and X-WP-TotalPages response headers.'
+- id: idempotency
+  conforms: false
+  evidence: No Idempotency-Key header or equivalent parameter exists on any of the 420 discovered routes.
+- id: oembed
+  conforms: true
+  evidence: The oembed/1.0 namespace implements the oEmbed discovery and proxy specification.
+- id: json-schema
+  conforms: partial
+  evidence: >-
+    WordPress route args carry JSON-Schema-flavoured type/default/enum/minimum/maximum keywords, which
+    is what made the OpenAPI derivation possible; full resource schemas are exposed per-route via the
+    OPTIONS method rather than as standalone schema documents.
+- id: a2a
+  conforms: false
+  evidence: /.well-known/agent-card.json and /.well-known/agent.json both returned HTTP 404 on 2026-08-23.
+- id: asyncapi
+  conforms: false
+  evidence: No event, streaming or webhook surface exists on this host.
+domain_standards:
+  assessment: none-applicable
+  sector: Medical devices — implantable cardiac rhythm/heart-failure therapy
+  note: >-
+    REWARD-ONLY check, deliberately left empty. The healthcare interoperability standards that would
+    apply to a clinical data surface — HL7 FHIR, HL7v2, DICOM, IEEE 11073 personal-health-device
+    profiles, IHE PDQ/XDS — are NOT declared anywhere in this contract, and they SHOULD NOT be,
+    because the only machine-readable surface this company operates is the content-management API of
+    its marketing website. Impulse Dynamics does operate regulated clinical surfaces (the Optimizer
+    programmer, remote-monitoring and the CE/FDA-cleared device software), but none of them is
+    exposed as a public API, so there is nothing to test for conformance. Asserting a healthcare
+    standard here on the strength of the company's sector would be fabrication.
+  probed_for: [fhir, hl7v2, dicom, scim, odata, 'json:api', oai-pmh]
+  probed_result: none found in the contract
+compliance_program:
+  published: false
+  note: >-
+    No trust centre, no SOC 2 / ISO 27001 / HIPAA / FedRAMP attestation page, and no security
+    certification listing was found. trust.impulse-dynamics.com does not resolve. NO Compliance
+    pointer is emitted. The company does publish regulatory device approvals (FDA PMA 2019, CE mark
+    2016, China NMPA) and a GDPR-oriented data protection statement, but those are medical-device
+    and privacy regulatory facts, not an information-security compliance programme.

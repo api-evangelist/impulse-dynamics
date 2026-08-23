@@ -1,0 +1,59 @@
+generated: '2026-08-23'
+method: probed
+status: published
+source: https://impulse-dynamics.com/wp-json/mcp
+summary: >-
+  Two Model Context Protocol servers are live on the Impulse Dynamics corporate host. They are NOT a
+  product MCP server for CCM therapy, the Optimizer device or any clinical data — they are the
+  WordPress MCP Adapter plugin running on the marketing site's WordPress install, exposing that
+  site's content and abilities. They are catalogued because they are real, reachable, provider-hosted
+  MCP endpoints advertised by the site's own route-discovery document.
+deployment:
+  mode: remote
+  endpoint: https://impulse-dynamics.com/wp-json/mcp/mcp-oauth-server
+  auth: oauth
+  verified: probed
+  note: >-
+    A second remote endpoint, https://impulse-dynamics.com/wp-json/mcp/mcp-adapter-default-server,
+    runs the same adapter under WordPress capability auth rather than the OAuth guard. Both are
+    remote HTTP endpoints an MCP client POSTs JSON-RPC to; there is no stdio package and no npx
+    install for this provider, so mode is remote and install/package are deliberately absent.
+servers:
+- name: mcp-oauth-server
+  url: https://impulse-dynamics.com/wp-json/mcp/mcp-oauth-server
+  transport: http
+  methods: [POST, GET, DELETE]
+  auth: oauth
+  probe:
+    fetched: '2026-08-23'
+    request: 'POST {"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+    http_status: 401
+    body: '{"code":"mcp_unauthorized","message":"MCP authentication required.","data":{"status":401}}'
+- name: mcp-adapter-default-server
+  url: https://impulse-dynamics.com/wp-json/mcp/mcp-adapter-default-server
+  transport: http
+  methods: [POST, GET, DELETE]
+  auth: wordpress-capability
+  probe:
+    fetched: '2026-08-23'
+    request: 'POST {"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+    http_status: 401
+    body: '{"code":"rest_forbidden","message":"Sorry, you are not allowed to do that.","data":{"status":401}}'
+tools: []
+tools_note: >-
+  The live tool list is auth-gated. tools/list returned HTTP 401 on BOTH servers anonymously, so no
+  tool names and no inputSchema could be read, and none are invented here. There is no llms.txt on
+  this host to fall back to for a published tool list either. Recovering the real tool set requires
+  authenticated introspection.
+discovery_gap: >-
+  Neither /.well-known/oauth-authorization-server (RFC 8414) nor /.well-known/oauth-protected-resource
+  (RFC 9728) is served by this host — both returned HTTP 404 on 2026-08-23, as did the path-suffixed
+  variants for the mcp-oauth-server resource. An MCP client that receives the 401 has no advertised
+  token issuer, no registration endpoint and no scope list to act on, so these endpoints are in
+  practice unreachable to any agent not provisioned out of band. Publishing the two metadata
+  documents is the single highest-value fix available on this surface.
+related_surface:
+  wp_abilities: >-
+    The same install exposes the WordPress Abilities API at /wp-json/wp-abilities/v1/abilities — the
+    registry the MCP adapter draws its tools from. It is capability-gated too (HTTP 401 anonymously,
+    rest_forbidden), which is consistent with the tool list being unreadable.

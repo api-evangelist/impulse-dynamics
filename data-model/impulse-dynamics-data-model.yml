@@ -1,0 +1,117 @@
+generated: '2026-08-23'
+method: derived
+source: openapi/_original/impulse-dynamics-wp-rest-openapi.yml
+summary: >-
+  Entity graph of the wp/v2 namespace on impulse-dynamics.com, derived from the route tree and the
+  id-reference parameters WordPress declares on each route. The interesting part is not the WordPress
+  core content model — it is the FIVE custom post types this company registered, because they are
+  where Impulse Dynamics' own business data lives and they are readable anonymously: the clinic
+  locator, the technical-document library, careers, news and in-the-media coverage.
+identifier_scheme:
+  type: integer
+  note: Every resource is keyed by a positive integer post ID unique across all post types. Taxonomy terms use their own integer term IDs. Slugs are secondary, human-readable keys.
+entities:
+- name: post
+  path: /wp-json/wp/v2/posts
+  domain: core content
+  relationships:
+  - {type: belongs_to, target: user, via: author}
+  - {type: has_many, target: category, via: categories}
+  - {type: has_many, target: tag, via: tags}
+  - {type: has_many, target: comment, via: post}
+  - {type: has_one, target: media, via: featured_media}
+  - {type: has_many, target: revision, via: 'posts/{id}/revisions'}
+- name: page
+  path: /wp-json/wp/v2/pages
+  domain: core content
+  relationships:
+  - {type: belongs_to, target: user, via: author}
+  - {type: belongs_to, target: page, via: parent}
+  - {type: has_one, target: media, via: featured_media}
+- name: media
+  path: /wp-json/wp/v2/media
+  domain: core content
+  note: Holds the PDFs served by the technical-document library and the site's imagery.
+  relationships:
+  - {type: belongs_to, target: post, via: post}
+  - {type: belongs_to, target: user, via: author}
+- name: clinic-locator
+  path: /wp-json/wp/v2/clinic-locator
+  domain: company data
+  description: >-
+    Custom post type backing https://impulse-dynamics.com/find-provider/ — the directory of clinics
+    and providers offering CCM therapy. The company's most substantive first-party dataset on this
+    surface.
+  relationships:
+  - {type: has_many, target: clinic_country, via: clinic_country}
+  - {type: has_many, target: state_name, via: state_name}
+- name: clinic_country
+  path: /wp-json/wp/v2/clinic_country
+  domain: company data
+  kind: taxonomy
+  relationships:
+  - {type: has_many, target: clinic-locator, via: clinic_country}
+- name: state_name
+  path: /wp-json/wp/v2/state_name
+  domain: company data
+  kind: taxonomy
+  relationships:
+  - {type: has_many, target: clinic-locator, via: state_name}
+- name: imp_technical_doc
+  path: /wp-json/wp/v2 (custom post type; also exposed via the imp_technical_doc sitemap)
+  domain: company data
+  description: >-
+    The regulated technical-document library behind https://impulse-dynamics.com/us-technical-documents/
+    — instructions for use, labelling and manuals for the Optimizer device family. Classified by two
+    taxonomies, tech_document_products and tech_document_Languages.
+  relationships:
+  - {type: has_many, target: tech_document_products, via: tech_document_products}
+  - {type: has_many, target: tech_document_Languages, via: tech_document_Languages}
+  - {type: has_one, target: media, via: attached PDF}
+- name: imp_career
+  path: /wp-json/wp/v2 (custom post type; also exposed via the imp_career sitemap)
+  domain: company data
+  description: Job listings behind https://impulse-dynamics.com/company/careers/.
+  relationships:
+  - {type: has_many, target: career_locations, via: career_locations}
+  - {type: has_many, target: career_categories, via: career_categories}
+- name: news
+  path: /wp-json/wp/v2/news
+  domain: company data
+  description: Corporate newsroom entries, mirrored at https://news.impulse-dynamics.com/.
+- name: in_the_media
+  path: /wp-json/wp/v2/in_the_media
+  domain: company data
+  description: Third-party press coverage of the company and of CCM therapy.
+- name: tribe_events
+  path: /wp-json/wp/v2/tribe_events
+  domain: events
+  description: >-
+    The Events Calendar post type behind https://impulse-dynamics.com/events/ — conference and
+    symposium appearances. Probed 2026-08-23: the collection is currently empty (total 0).
+  relationships:
+  - {type: has_many, target: tribe_events_cat, via: tribe_events_cat}
+  - {type: belongs_to, target: tribe_venue, via: venue}
+  - {type: belongs_to, target: tribe_organizer, via: organizer}
+- name: user
+  path: /wp-json/wp/v2/users
+  domain: core content
+  relationships:
+  - {type: has_many, target: post, via: author}
+- name: comment
+  path: /wp-json/wp/v2/comments
+  domain: core content
+  relationships:
+  - {type: belongs_to, target: post, via: post}
+  - {type: belongs_to, target: comment, via: parent}
+absent_domains:
+  note: >-
+    No patient, clinical, device-telemetry, implant-registry or remote-monitoring entity exists on
+    this surface, and none should be expected to — this is a marketing website's content database.
+    The company's regulated clinical data lives in systems that are not exposed as a public API.
+counts:
+  namespaces_catalogued: 5
+  wp_v2_collections: 48
+  custom_post_types_first_party: 5
+  operations_total: 379
+render: null

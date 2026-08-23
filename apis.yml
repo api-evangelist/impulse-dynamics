@@ -1,18 +1,126 @@
 aid: impulse-dynamics
 name: Impulse Dynamics
-description: 'Impulse Dynamics is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Impulse Dynamics is a medical-device company that created Cardiac Contractility Modulation (CCM)
+  therapy, delivered by the implantable Optimizer Smart and Optimizer Smart Mini pulse generators for
+  patients with moderate-to-severe chronic heart failure who remain symptomatic despite
+  guideline-directed medical therapy. Incorporated in 1997, with US headquarters in Marlton, New
+  Jersey, the company won the first-ever FDA Breakthrough Device designation and received FDA
+  approval for the Optimizer Smart in March 2019; the device has been CE marked since October 2016
+  and is now approved in more than 30 countries plus China. Impulse Dynamics operates no developer
+  programme: there is no developer portal, API documentation, API reference, SDK, CLI, sandbox,
+  pricing or sign-up, and nothing clinical or device-related is exposed as an API. It is catalogued
+  here because its corporate website runs a live, anonymous, self-describing WordPress REST API
+  advertising 420 routes across 30 namespaces, because that same install exposes two Model Context
+  Protocol servers, and because the company publishes a substantive vulnerability disclosure
+  programme with two PGP-published security contacts covering its medical devices, health software
+  and infrastructure.
+image: https://impulse-dynamics.com/wp-content/uploads/2023/05/Impulse-Dynamics_Logo_1.0.png
 url: https://raw.githubusercontent.com/api-evangelist/impulse-dynamics/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
-specificationVersion: '0.20'
+x-tier: enriched
+x-tier-reason: enrichment pass 2026-08-23
+specificationVersion: '0.23'
 created: '2026-08-23'
 modified: '2026-08-23'
 tags:
 - Company
-apis: []
+- Medical Devices
+- Healthcare
+- Cardiology
+- Heart Failure
+- Implantable Devices
+- Health Technology
+- Life Sciences
+- Clinical Trials
+- MCP
+- WordPress
+tags_raw:
+- Company
+- Medical Devices
+- Healthcare
+- Cardiology
+- Heart Failure
+- Implantable Devices
+- Health Technology
+- Life Sciences
+- Clinical Trials
+- Model Context Protocol
+- WordPress
+apis:
+- aid: impulse-dynamics:impulse-dynamics-wp-v2-api
+  name: Impulse Dynamics wp/v2 API
+  description: >-
+    WordPress core content API of the corporate website (posts, pages, media, taxonomies, users,
+    settings) plus this company's own custom post types: the CCM clinic/provider locator, the
+    Optimizer technical-document library, careers, the newsroom and press coverage. 357 operations.
+  humanURL: https://impulse-dynamics.com/wp-json/
+  baseURL: https://impulse-dynamics.com/wp-json/
+  tags:
+  - wp/v2
+  tags_raw:
+  - wp/v2
+  properties:
+  - type: OpenAPI
+    url: openapi/impulse-dynamics-wp-v2-api-openapi.yml
+  - type: DataModel
+    url: data-model/impulse-dynamics-data-model.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+- aid: impulse-dynamics:impulse-dynamics-mcp-api
+  name: Impulse Dynamics MCP API
+  description: >-
+    Two Model Context Protocol servers exposed by the WordPress MCP Adapter plugin on the corporate
+    host. Both reject anonymous JSON-RPC with HTTP 401, and the host publishes no RFC 8414 or RFC
+    9728 metadata, so the token issuer is undiscoverable.
+  humanURL: https://impulse-dynamics.com/wp-json/mcp
+  baseURL: https://impulse-dynamics.com/wp-json/
+  tags:
+  - MCP
+  tags_raw:
+  - mcp
+  properties:
+  - type: OpenAPI
+    url: openapi/impulse-dynamics-mcp-api-openapi.yml
+  - type: MCPServer
+    url: mcp/impulse-dynamics-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/impulse-dynamics-tool-crosswalk.yml
+- aid: impulse-dynamics:impulse-dynamics-wp-abilities-v1-api
+  name: Impulse Dynamics wp-abilities/v1 API
+  description: >-
+    WordPress Abilities API — the registry of named abilities the MCP adapter draws its tools from.
+    Capability-gated: HTTP 401 rest_forbidden anonymously.
+  humanURL: https://impulse-dynamics.com/wp-json/wp-abilities/v1
+  baseURL: https://impulse-dynamics.com/wp-json/
+  tags:
+  - wp-abilities/v1
+  properties:
+  - type: OpenAPI
+    url: openapi/impulse-dynamics-wp-abilities-v1-api-openapi.yml
+- aid: impulse-dynamics:impulse-dynamics-oembed-1-0-api
+  name: Impulse Dynamics oEmbed/1.0 API
+  description: oEmbed discovery and proxy endpoints.
+  humanURL: https://impulse-dynamics.com/wp-json/oembed/1.0
+  baseURL: https://impulse-dynamics.com/wp-json/
+  tags:
+  - oembed/1.0
+  properties:
+  - type: OpenAPI
+    url: openapi/impulse-dynamics-oembed-1-0-api-openapi.yml
+- aid: impulse-dynamics:impulse-dynamics-root-api
+  name: Impulse Dynamics Root API
+  description: REST API index / namespace discovery — the anonymous route-discovery document this whole profile was derived from.
+  humanURL: https://impulse-dynamics.com/wp-json/
+  baseURL: https://impulse-dynamics.com/wp-json/
+  tags:
+  - Root
+  tags_raw:
+  - root
+  properties:
+  - type: OpenAPI
+    url: openapi/impulse-dynamics-root-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -20,4 +128,91 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
+  url: https://impulse-dynamics.com/
+- type: About
+  url: https://impulse-dynamics.com/company/
+- type: Blog
+  url: https://news.impulse-dynamics.com/
+- type: BlogRSS
+  url: https://impulse-dynamics.com/feed/
+- type: Careers
+  url: https://impulse-dynamics.com/company/careers/
+- type: Governance
+  url: https://impulse-dynamics.com/company/governance/
+- type: Contact
+  url: https://impulse-dynamics.com/contact-us/
+- type: TermsOfService
+  url: https://impulse-dynamics.com/terms-of-use/
+- type: PrivacyPolicy
+  url: https://impulse-dynamics.com/privacy-policy/
+- type: DataProtection
+  url: https://impulse-dynamics.com/data-protection-statement/
+- type: Security
+  url: https://impulse-dynamics.com/vulnerability-disclosure-program/
+- type: SecondaryMarket
   url: https://www.hiive.com/securities/impulse-dynamics-stock
+- type: OpenAPI
+  url: openapi/_original/impulse-dynamics-wp-rest-openapi.yml
+- type: Overlay
+  url: overlays/impulse-dynamics-wp-rest-overlay.yaml
+- type: MCPServer
+  url: mcp/impulse-dynamics-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/impulse-dynamics-tool-crosswalk.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/impulse-dynamics-llms.txt
+- type: Authentication
+  url: authentication/impulse-dynamics-authentication.yml
+- type: Conventions
+  url: conventions/impulse-dynamics-conventions.yml
+- type: ErrorCatalog
+  url: errors/impulse-dynamics-problem-types.yml
+- type: DataModel
+  url: data-model/impulse-dynamics-data-model.yml
+- type: Lifecycle
+  url: lifecycle/impulse-dynamics-lifecycle.yml
+- type: Conformance
+  url: conformance/impulse-dynamics-conformance.yml
+- type: AgenticAccess
+  url: agentic-access/impulse-dynamics-agentic-access.yml
+- type: Plans
+  url: plans/impulse-dynamics-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/impulse-dynamics-rate-limits.yml
+- type: VulnerabilityDisclosure
+  url: security/impulse-dynamics-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/impulse-dynamics-domain-security.yml
+x-enrichment:
+  date: '2026-08-23'
+  status: enriched
+  artifacts_added: 27
+  pass: local-v1
+x-enrichment-notes: >-
+  IDENTITY REPAIR: this repo's only inherited pointer was a `Website` set to a Hiive secondary-market
+  listing (https://www.hiive.com/securities/impulse-dynamics-stock). Because the security probes
+  follow the Website pointer, the first probe pass produced a domain-security profile for hiive.com
+  and attributed HIIVE's vulnerability disclosure programme (security@hiive.com, hiive.com/vdp) to
+  Impulse Dynamics. Both artifacts were deleted and re-probed after Website was corrected to
+  https://impulse-dynamics.com/ and the venue listing was demoted to SecondaryMarket.
+  Deliberately absent, each a verified negative probed on 2026-08-23: WellKnown and SecurityTxt (all
+  eight /.well-known/ paths returned a genuine 404 with an identical 548-byte body — not a soft-200
+  catch-all); AgentCard (/.well-known/agent-card.json and /.well-known/agent.json both 404); ContentSignal
+  (robots.txt is served and saved, but it is a stock allow-all Yoast block with no AI-preference or
+  Content-Signal directive, so it is not a consent signal); Idempotency (no Idempotency-Key header or
+  equivalent on any of the 420 discovered routes); SDKs and Packages (nothing first-party on npm, PyPI,
+  RubyGems, crates.io or any registry); GitHubOrganization (no org at impulse-dynamics, impulsedynamics
+  or ImpulseDynamics — all 404 from the GitHub API); StatusPage (status.impulse-dynamics.com does not
+  resolve); Deprecation (no policy, no RFC 8594 Sunset header); TrustCenter and Compliance
+  (trust.impulse-dynamics.com does not resolve, no SOC 2 / ISO 27001 / HIPAA attestation published —
+  the company's FDA PMA, CE mark and NMPA approvals are medical-device regulatory facts, not an
+  information-security compliance programme); AsyncAPI and Webhooks (no event surface); GraphQL,
+  Protobuf and WSDL (none); Postman, Pricing, SignUp, Roadmap, Documentation, DeveloperPortal,
+  APIReference, GettingStarted, CLI, Sandbox, Components and ChangeLog (the company publishes no
+  developer surface of any kind). OAuthScopes is omitted on purpose: the mcp namespace is OAuth-guarded
+  but no authorization-server metadata is published, so no real scope list exists to record.
+  The Security pointer is the company's genuine, detailed vulnerability disclosure programme with two
+  PGP-published contacts — a real medical-device VDP, notable because it is NOT discoverable via
+  security.txt.

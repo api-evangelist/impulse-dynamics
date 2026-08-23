@@ -1,0 +1,21 @@
+generated: '2026-08-23'
+method: searched
+source: https://impulse-dynamics.com/
+plan_count: 0
+plans: []
+note: >-
+  Impulse Dynamics publishes no API plans, no developer pricing and no API sign-up, because it sells
+  no API. It is a medical-device manufacturer: the commercial surface is the Optimizer Smart Mini
+  implantable pulse generator, sold into hospitals and reimbursed through healthcare payors, and the
+  site's only pricing-adjacent page is a clinician reimbursement explainer
+  (https://impulse-dynamics.com/updated-reimbursement/, HTTP 200) covering CMS coding for the CCM
+  implant procedure — not API pricing. The WordPress REST surface catalogued in this repo is free and
+  anonymous for reads and has no commercial terms attached to it at all. plan_count is 0 as a
+  measured fact, not as a gap.
+searched:
+- url: https://impulse-dynamics.com/
+  status: 200
+  note: No pricing or developer navigation anywhere in the site menu.
+- url: https://impulse-dynamics.com/updated-reimbursement/
+  status: 200
+  note: Clinical reimbursement guidance, not API pricing.

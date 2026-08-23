@@ -1,0 +1,64 @@
+generated: '2026-08-23'
+method: derived
+source: mcp/impulse-dynamics-mcp.yml + openapi/_original/impulse-dynamics-wp-rest-openapi.yml
+summary: >-
+  This provider has BOTH an MCP surface and an OpenAPI, so a crosswalk is emitted — but it is an
+  honest empty one. The MCP tool list is auth-gated (tools/list returned HTTP 401 on both servers on
+  2026-08-23) and no llms.txt or published tool inventory exists to fall back to, so there are zero
+  tool names to bind. Every row that could be written here would be invented, so none is. What the
+  crosswalk CAN record truthfully is the REST side of the divergence: 379 operations across five
+  WordPress core namespaces exist with no known tool exposure.
+surfaces:
+  openapi:
+    file: openapi/_original/impulse-dynamics-wp-rest-openapi.yml
+    gated: false
+    note: >-
+      Derived from the site's own anonymous route-discovery document at
+      https://impulse-dynamics.com/wp-json/ (HTTP 200). Route metadata is public; most write
+      operations behind it require authentication.
+  graphql:
+    endpoint: null
+    gated: null
+    note: No GraphQL surface. https://impulse-dynamics.com/graphql soft-404s to the site root.
+  mcp:
+    url: https://impulse-dynamics.com/wp-json/mcp/mcp-oauth-server
+    gated: true
+    note: >-
+      tools/list -> HTTP 401 mcp_unauthorized. Sibling server mcp-adapter-default-server ->
+      HTTP 401 rest_forbidden. No RFC 8414 / RFC 9728 metadata published, so the OAuth issuer
+      needed to get past the gate is itself undiscoverable.
+crosswalk: []
+mcp_only: []
+rest_only:
+- capability: WordPress core content
+  namespace: wp/v2
+  operations: 357
+  note: >-
+    Posts, pages, media, users, taxonomies, comments, settings, plus this site's custom post types —
+    careers (imp_career), technical documents (imp_technical_doc), clinic locator, in-the-media and
+    news. No tool binding is known because the tool list is gated.
+- capability: WordPress Abilities registry
+  namespace: wp-abilities/v1
+  operations: 10
+  note: >-
+    The ability registry the MCP adapter derives tools from. Capability-gated (HTTP 401), so the
+    ability names that would become tool names could not be read.
+- capability: MCP transport endpoints
+  namespace: mcp
+  operations: 7
+  note: The JSON-RPC endpoints themselves, as REST routes advertised by the discovery document.
+- capability: oEmbed discovery and proxy
+  namespace: oembed/1.0
+  operations: 3
+- capability: REST index / namespace discovery
+  namespace: root
+  operations: 2
+coverage:
+  tools_named: 0
+  tools_bound: 0
+  mcp_only: 0
+  rest_ops_total: 379
+  rest_ops_with_tool: 0
+  confidence: >-
+    Not applicable — nothing was mapped. This is a recorded gate, not a measured divergence.
+    Re-run after authenticated introspection to produce real bindings.

@@ -1,0 +1,131 @@
+generated: '2026-08-23'
+method: derived
+source: openapi/_original/impulse-dynamics-wp-rest-openapi.yml + live probes on 2026-08-23
+scope: >-
+  Cross-cutting runtime semantics of the only machine-readable surface this company operates: the
+  WordPress REST API on impulse-dynamics.com. These are WordPress core conventions, observed on this
+  host — Impulse Dynamics publishes no API documentation of its own, so nothing here is a provider
+  claim; it is read off the live contract.
+authentication:
+  style: WordPress Application Passwords (HTTP Basic) for machine clients; X-WP-Nonce for same-origin browsers
+  advertised_at: https://impulse-dynamics.com/wp-admin/authorize-application.php
+  source: authentication/impulse-dynamics-authentication.yml
+  note: >-
+    The discovery document advertises application-passwords as the site's only machine auth method.
+    The mcp namespace is separately guarded and returns 401 anonymously.
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    NO idempotency contract exists on this surface. No Idempotency-Key header, no idempotency
+    parameter, and no request-deduplication semantics appear anywhere in the 420-route discovery
+    document. A retried POST creates a second resource. No Idempotency pointer is emitted for this
+    provider — this is a verified absence, not an unchecked field.
+reversibility:
+  state: documented
+  grade_basis: >-
+    A reversal path exists and is expressed in the contract itself, but the provider states no window
+    inside which it works. Per the 0.12.0 rubric that is `documented` (0.4), not `verified` (1.0).
+    No window is asserted here because none is published — WordPress core's default trash retention
+    is a server configuration value this company does not document, and inventing it could cost a
+    user real data.
+  write_surface: true
+  surfaces:
+  - operation: DELETE /wp-json/wp/v2/{type}/{id}
+    action: Delete a post, page, media item or custom-post-type item
+    reversal: >-
+      Soft delete by default. The DELETE endpoint takes a `force` boolean whose contract text is
+      verbatim "Whether to bypass Trash and force deletion", with `default: false` — so an
+      unqualified DELETE moves the item to Trash and it can be restored by setting its status back
+      to `publish` or `draft` via POST /wp-json/wp/v2/{type}/{id}.
+    reversal_operation: postWpV2PostsId
+    window: null
+    window_note: >-
+      Not stated by the provider. Trash retention is governed by the site's EMPTY_TRASH_DAYS
+      configuration, which is not published and not readable from the API.
+    irreversible_when: force=true
+  - operation: DELETE with force=true
+    action: Permanent deletion
+    reversal: none
+    window: null
+    window_note: Explicitly irreversible — the parameter's own description is "bypass Trash and force deletion".
+  - operation: Revisions and autosaves
+    action: Content edits
+    reversal: >-
+      wp/v2 exposes /revisions and /autosaves subroutes on posts, pages and every custom post type on
+      this site, so an edit can be rolled back to a prior revision. Revision retention is likewise
+      unpublished.
+    window: null
+  read_only: false
+  note: >-
+    47 DELETE routes across the whole install carry the `force` parameter, 20 of them inside the
+    wp/v2 core namespace catalogued here.
+dry_run_mode:
+  supported: false
+  note: No preview/validate-only/dry-run parameter exists on any route in the discovery document.
+pagination:
+  style: page-number with offset escape hatch
+  params:
+  - name: page
+    type: integer
+    default: 1
+  - name: per_page
+    type: integer
+    default: 10
+    minimum: 1
+    maximum: 100
+  - name: offset
+    type: integer
+  response_fields: >-
+    Item count and page count are returned in the X-WP-Total and X-WP-TotalPages response headers,
+    not in the JSON body — the body is a bare JSON array. Link headers carry rel="next"/rel="prev".
+  note: per_page is hard-capped at 100 by the contract; a full crawl of a large collection must page.
+filtering_and_sorting:
+  params: [search, after, before, order, orderby, status, slug, include, exclude, parent]
+  order_values: [asc, desc]
+sparse_fields:
+  supported: true
+  param: _fields
+  note: >-
+    `_fields` limits the response to named properties. `_embed` inlines linked resources referenced
+    from the _links envelope.
+metadata:
+  supported: true
+  note: wp/v2 resources carry a `meta` object for registered custom fields.
+request_tracing:
+  request_id_header: null
+  note: >-
+    No request-id or correlation header is issued by this host. An agent has no server-side handle to
+    quote when reporting a failed call.
+versioning:
+  scheme: namespace-in-path
+  current: wp/v2
+  note: >-
+    The version is the namespace segment (wp/v2, wp-abilities/v1, oembed/1.0). Namespaces are
+    enumerable at /wp-json/. See lifecycle/impulse-dynamics-lifecycle.yml.
+error_envelope:
+  format: WordPress REST error object
+  rfc9457: false
+  shape: '{"code": "<string>", "message": "<string>", "data": {"status": <int>}}'
+  observed:
+  - '{"code":"rest_forbidden","message":"Sorry, you are not allowed to do that.","data":{"status":401}}'
+  - '{"code":"mcp_unauthorized","message":"MCP authentication required.","data":{"status":401}}'
+  content_type: application/json
+  note: >-
+    Not application/problem+json. See errors/impulse-dynamics-problem-types.yml.
+rate_limit_signaling:
+  headers: []
+  note: >-
+    No RateLimit-*, X-RateLimit-* or Retry-After header was observed on any response from this host,
+    and no limits are documented. See rate-limits/impulse-dynamics-rate-limits.yml.
+hypermedia:
+  supported: true
+  note: >-
+    Responses carry a _links envelope (self, collection, about, author, replies, wp:attachment,
+    curies), so the surface is partially self-navigable.
+cross_links:
+  errors: errors/impulse-dynamics-problem-types.yml
+  lifecycle: lifecycle/impulse-dynamics-lifecycle.yml
+  authentication: authentication/impulse-dynamics-authentication.yml
+  rate_limits: rate-limits/impulse-dynamics-rate-limits.yml
+  mcp: mcp/impulse-dynamics-mcp.yml

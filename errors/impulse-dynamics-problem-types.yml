@@ -1,0 +1,65 @@
+generated: '2026-08-23'
+method: derived
+source: openapi/_original/impulse-dynamics-wp-rest-openapi.yml + live 401 responses observed 2026-08-23
+format: wordpress-rest-error
+rfc9457: false
+envelope:
+  content_type: application/json
+  shape: '{"code": "<machine string>", "message": "<human string>", "data": {"status": <http status>}}'
+  note: >-
+    The WordPress REST error envelope. It predates RFC 9457 and does not use application/problem+json:
+    there is no `type` URI, no `title`, no `detail` and no `instance`. `code` is the stable machine
+    identifier an agent should branch on; `message` is human prose and is localisable, so it must not
+    be matched against.
+problems:
+- status: 401
+  code: rest_forbidden
+  title: Authentication required or capability missing
+  detail: 'Sorry, you are not allowed to do that.'
+  observed: true
+  observed_at: https://impulse-dynamics.com/wp-json/mcp/mcp-adapter-default-server
+  observed_on: '2026-08-23'
+  remediation: >-
+    Authenticate with a WordPress Application Password over HTTP Basic, or supply a valid X-WP-Nonce
+    for a same-origin browser session. The failure is a capability check, so a valid credential
+    lacking the required capability returns the same code.
+  source_operation: openapi/_original/impulse-dynamics-wp-rest-openapi.yml#postMcpMcpAdapterDefaultServer
+- status: 401
+  code: mcp_unauthorized
+  title: MCP authentication required
+  detail: 'MCP authentication required.'
+  observed: true
+  observed_at: https://impulse-dynamics.com/wp-json/mcp/mcp-oauth-server
+  observed_on: '2026-08-23'
+  remediation: >-
+    Present a bearer token to the MCP OAuth server. NOTE: this host publishes neither RFC 8414
+    authorization-server metadata nor RFC 9728 protected-resource metadata, so a client that receives
+    this error cannot discover where to obtain a token. There is no in-band recovery path.
+  source_operation: openapi/_original/impulse-dynamics-wp-rest-openapi.yml#postMcpMcpOauthServer
+- status: 401
+  code: rest_forbidden
+  title: Abilities registry is capability-gated
+  detail: 'Sorry, you are not allowed to do that.'
+  observed: true
+  observed_at: https://impulse-dynamics.com/wp-json/wp-abilities/v1/abilities
+  observed_on: '2026-08-23'
+  remediation: Authenticate with an account holding the capability the ability registry requires.
+  source_operation: openapi/_original/impulse-dynamics-wp-rest-openapi.yml#getWpAbilitiesV1Abilities
+- status: 404
+  code: rest_no_route
+  title: No route was found matching the URL and request method
+  observed: false
+  derived_from: WordPress REST core; declared as a 404 response on every operation in the spec
+  remediation: Enumerate valid routes at https://impulse-dynamics.com/wp-json/ before calling.
+- status: 404
+  code: rest_post_invalid_id
+  title: Invalid resource ID
+  observed: false
+  derived_from: WordPress REST core; declared as a 404 response on every item-scoped operation
+  remediation: Confirm the id exists and is of the expected post type.
+coverage_note: >-
+  Only the three 401 shapes above were observed live on this host. The 404 codes are declared in the
+  derived contract as WordPress core behaviour but were not exercised against this server, and are
+  marked observed:false rather than asserted. Impulse Dynamics publishes no error reference of its
+  own — there is no developer documentation on this domain to enrich these entries from, so titles
+  and remediation are derived, not searched.

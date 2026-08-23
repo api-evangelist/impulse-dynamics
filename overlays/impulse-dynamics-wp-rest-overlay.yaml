@@ -1,0 +1,63 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Impulse Dynamics WordPress REST API
+  version: 1.0.0
+extends: openapi/_original/impulse-dynamics-wp-rest-openapi.yml
+x-generated: '2026-08-23'
+x-method: generated
+x-source: >-
+  Enhancements API Evangelist adds on top of the contract derived from
+  https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200). The underlying spec is never
+  mutated; everything we assert about this surface lives here.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: impulse-dynamics
+    x-apievangelist-surface-class: incidental-cms
+    x-apievangelist-note: >-
+      This is the content-management API of a medical-device company's marketing website. It is a
+      real, live, self-describing contract on the provider's own host, but it is not a product API
+      and it carries no versioning, deprecation, SLA or support commitment. Treat every route as
+      subject to change without notice.
+    x-apievangelist-reviewed: '2026-08-23'
+- target: $.info
+  update:
+    x-agent-readiness:
+      idempotency: absent
+      reversibility: documented
+      rate_limit_signal: absent
+      request_tracing: absent
+      error_format: wordpress-envelope
+      well_known_catalog: absent
+      agent_card: absent
+- target: $.tags[?(@.name=='mcp')]
+  update:
+    x-mcp-endpoints:
+    - https://impulse-dynamics.com/wp-json/mcp/mcp-oauth-server
+    - https://impulse-dynamics.com/wp-json/mcp/mcp-adapter-default-server
+    x-mcp-auth-gated: true
+    x-mcp-discovery-gap: >-
+      No RFC 8414 authorization-server metadata and no RFC 9728 protected-resource metadata are
+      published, so a client receiving the 401 cannot discover a token issuer. Probed 2026-08-23.
+- target: $.tags[?(@.name=='wp/v2')]
+  update:
+    x-first-party-collections:
+    - clinic-locator
+    - imp_technical_doc
+    - imp_career
+    - news
+    - in_the_media
+    x-note: >-
+      The company's own data on this surface: the CCM provider/clinic directory, the Optimizer
+      technical-document library, careers, the newsroom and press coverage.
+- target: $.components.schemas.WPError
+  update:
+    x-rfc9457: false
+    x-branch-on: code
+    x-note: >-
+      Branch on `code`, never on `message` — message is human prose and is localisable.
+- target: $.servers[0]
+  update:
+    x-tls: TLSv1.3
+    x-hsts: false
+    x-probed: '2026-08-23'

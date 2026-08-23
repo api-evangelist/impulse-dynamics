@@ -1,0 +1,215 @@
+openapi: 3.1.0
+info:
+  title: Impulse Dynamics oembed/1.0 API
+  version: 1.0.0
+  summary: oEmbed discovery and proxy endpoints.
+  description: 'Derived verbatim from the route-discovery document the Impulse Dynamics web server publishes at
+    https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200). Every path, method, parameter name, type,
+    default and enum in this document was read from that live response; nothing was invented.
+
+
+    This is the content-management API of the corporate marketing site, not a therapeutic, clinical or device API.
+    Impulse Dynamics is a medical-device company (Cardiac Contractility Modulation therapy, delivered by the Optimizer
+    Smart implantable pulse generator) and publishes no developer product API, no developer portal and no API reference.
+    The surface is catalogued because it is a real, live, self-describing HTTP contract on the provider''s own host,
+    and because the same WordPress install exposes two Model Context Protocol servers under the `mcp` namespace
+    (see mcp/impulse-dynamics-mcp.yml).
+
+
+    Only the WordPress core namespaces are represented (`root`, `wp/v2`, `wp-abilities/v1`, `mcp`, `oembed/1.0`).
+    The 25 third-party plugin namespaces advertised by the same discovery document (ai1wm/v1, akismet/v1, cky/v1,
+    cleantalk-antispam/v1, code-snippets/v1, cptui/v1, divi/v1, docs/v1, elicus/v1, flywheel/v1, gf/v2, gravity-pdf/v1,
+    gravityview/v1, gwiz/v1, redirection/v1, sps/v1, tec/v1, tec/v2/onboarding, tribe/event-aggregator/v1, tribe/events/v1,
+    tribe/views/v2, wp-block-editor/v1, wp-rocket/v1, wp-site-health/v1, yoast/v1) are intentionally excluded as
+    vendor plugin internals.'
+  x-derived-from: https://impulse-dynamics.com/wp-json/
+  x-derived-on: '2026-08-23'
+  x-apievangelist-method: derived
+servers:
+- url: https://impulse-dynamics.com
+  description: Production
+tags:
+- name: oembed/1.0
+  description: oEmbed discovery and proxy endpoints.
+components:
+  securitySchemes:
+    wpApplicationPassword:
+      type: http
+      scheme: basic
+      description: 'WordPress Application Passwords. The live discovery document advertises this as the site''s
+        only machine authentication method: authentication.application-passwords.endpoints.authorization = https://impulse-dynamics.com/wp-admin/authorize-application.php
+        (fetched 2026-08-23).'
+    wpNonce:
+      type: apiKey
+      in: header
+      name: X-WP-Nonce
+      description: WordPress cookie-authentication nonce, used by same-origin browser clients.
+    mcpAuth:
+      type: http
+      scheme: bearer
+      description: Bearer authentication guarding the `mcp` namespace. Anonymous POST of a JSON-RPC tools/list to
+        https://impulse-dynamics.com/wp-json/mcp/mcp-oauth-server returned HTTP 401 `mcp_unauthorized` and to https://impulse-dynamics.com/wp-json/mcp/mcp-adapter-default-server
+        returned HTTP 401 `rest_forbidden` on 2026-08-23. This host publishes NO RFC 8414 authorization-server metadata
+        and NO RFC 9728 protected-resource metadata (/.well-known/oauth-authorization-server and /.well-known/oauth-protected-resource
+        both 404 on 2026-08-23), so the token issuer and scopes are undiscoverable anonymously.
+  schemas:
+    WPError:
+      type: object
+      description: The WordPress REST API error envelope, observed verbatim on live 401 responses from this host.
+        Not RFC 9457 problem+json.
+      properties:
+        code:
+          type: string
+          examples:
+          - rest_forbidden
+          - mcp_unauthorized
+        message:
+          type: string
+          examples:
+          - Sorry, you are not allowed to do that.
+          - MCP authentication required.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              examples:
+              - 401
+paths:
+  /wp-json/oembed/1.0:
+    get:
+      operationId: getOembed10
+      summary: GET /oembed/1.0
+      description: WordPress REST API route `/oembed/1.0` in namespace `oembed/1.0`, as advertised by the live route-discovery
+        document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
+      tags:
+      - oembed/1.0
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: Authentication required or capability missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: No route or resource found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+      parameters:
+      - name: namespace
+        in: query
+        schema:
+          default: oembed/1.0
+      - name: context
+        in: query
+        schema:
+          default: view
+  /wp-json/oembed/1.0/embed:
+    get:
+      operationId: getOembed10Embed
+      summary: GET /oembed/1.0/embed
+      description: WordPress REST API route `/oembed/1.0/embed` in namespace `oembed/1.0`, as advertised by the
+        live route-discovery document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
+      tags:
+      - oembed/1.0
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: Authentication required or capability missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: No route or resource found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+      parameters:
+      - name: url
+        in: query
+        schema:
+          type: string
+          format: uri
+        required: true
+        description: The URL of the resource for which to fetch oEmbed data.
+      - name: format
+        in: query
+        schema:
+          default: json
+      - name: maxwidth
+        in: query
+        schema:
+          default: 600
+  /wp-json/oembed/1.0/proxy:
+    get:
+      operationId: getOembed10Proxy
+      summary: GET /oembed/1.0/proxy
+      description: WordPress REST API route `/oembed/1.0/proxy` in namespace `oembed/1.0`, as advertised by the
+        live route-discovery document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
+      tags:
+      - oembed/1.0
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: Authentication required or capability missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: No route or resource found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+      parameters:
+      - name: url
+        in: query
+        schema:
+          type: string
+          format: uri
+        required: true
+        description: The URL of the resource for which to fetch oEmbed data.
+      - name: format
+        in: query
+        schema:
+          type: string
+          default: json
+          enum:
+          - json
+          - xml
+        description: The oEmbed format to use.
+      - name: maxwidth
+        in: query
+        schema:
+          type: integer
+          default: 600
+        description: The maximum width of the embed frame in pixels.
+      - name: maxheight
+        in: query
+        schema:
+          type: integer
+        description: The maximum height of the embed frame in pixels.
+      - name: discover
+        in: query
+        schema:
+          type: boolean
+          default: true
+        description: Whether to perform an oEmbed discovery request for unsanctioned providers.

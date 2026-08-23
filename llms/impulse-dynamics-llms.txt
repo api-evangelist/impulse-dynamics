@@ -1,0 +1,99 @@
+# Impulse Dynamics
+
+> Impulse Dynamics is a medical-device company that developed Cardiac Contractility Modulation (CCM)
+> therapy, delivered by the implantable Optimizer Smart and Optimizer Smart Mini pulse generators for
+> patients with moderate-to-severe chronic heart failure who remain symptomatic on guideline-directed
+> medical therapy. Incorporated 1997; US headquarters in Marlton, New Jersey. The Optimizer Smart was
+> the first device to receive FDA Breakthrough Device status and was FDA-approved in March 2019; CE
+> marked since October 2016.
+
+## Is there an API?
+
+Impulse Dynamics operates **no developer programme**. There is no developer portal, no API
+documentation, no API reference, no SDK, no CLI, no sandbox, no pricing and no sign-up. Nothing
+clinical, nothing about the Optimizer device, and nothing about patients is exposed as an API.
+
+What DOES exist, and what this profile catalogues, is the **WordPress REST API of the corporate
+marketing website** — a real, live, anonymous, self-describing HTTP contract on the company's own
+host. It was catalogued because it is genuinely machine-readable, not because the company sells it.
+Treat it as incidental infrastructure with no versioning, deprecation, SLA or support commitment.
+
+- Route discovery (live, HTTP 200): https://impulse-dynamics.com/wp-json/
+- 420 routes advertised across 30 namespaces; 379 operations across the 5 WordPress core namespaces
+  are catalogued here. The other 25 namespaces are third-party plugin internals and are excluded.
+
+## Machine-readable artifacts
+
+- OpenAPI 3.1 (derived by API Evangelist, 170 paths / 379 operations): openapi/_original/impulse-dynamics-wp-rest-openapi.yml
+- OpenAPI per namespace: openapi/impulse-dynamics-wp-v2-api-openapi.yml, openapi/impulse-dynamics-wp-abilities-v1-api-openapi.yml, openapi/impulse-dynamics-mcp-api-openapi.yml, openapi/impulse-dynamics-oembed-1-0-api-openapi.yml, openapi/impulse-dynamics-root-api-openapi.yml
+- Verbatim route-discovery response: openapi/impulse-dynamics-wp-rest-discovery-original.json
+- Overlay (our enhancements): overlays/impulse-dynamics-wp-rest-overlay.yaml
+- MCP servers: mcp/impulse-dynamics-mcp.yml
+- Tool crosswalk: mcp/impulse-dynamics-tool-crosswalk.yml
+- Authentication: authentication/impulse-dynamics-authentication.yml
+- Conventions (pagination, reversibility, error envelope): conventions/impulse-dynamics-conventions.yml
+- Errors: errors/impulse-dynamics-problem-types.yml
+- Data model: data-model/impulse-dynamics-data-model.yml
+- Lifecycle: lifecycle/impulse-dynamics-lifecycle.yml
+- Conformance: conformance/impulse-dynamics-conformance.yml
+- Agentic access: agentic-access/impulse-dynamics-agentic-access.yml
+- Well-known probe (all 404 — a recorded absence): well-known/impulse-dynamics-well-known.yml
+- Domain security: security/impulse-dynamics-domain-security.yml
+- Vulnerability disclosure: security/impulse-dynamics-vulnerability-disclosure.yml
+
+## Agent skills
+
+- skills/impulse-dynamics-find-ccm-clinics.md — read the CCM provider/clinic directory as JSON
+- skills/impulse-dynamics-read-newsroom.md — read company announcements and press coverage as JSON
+
+## Model Context Protocol
+
+Two live MCP servers run on the corporate host, exposed by the WordPress MCP Adapter plugin. They are
+NOT product MCP servers.
+
+- https://impulse-dynamics.com/wp-json/mcp/mcp-oauth-server — HTTP 401 `mcp_unauthorized` anonymously
+- https://impulse-dynamics.com/wp-json/mcp/mcp-adapter-default-server — HTTP 401 `rest_forbidden` anonymously
+
+The tool list is auth-gated and could not be read, so no tool names are published here. Critically,
+this host serves **no** RFC 8414 authorization-server metadata and **no** RFC 9728 protected-resource
+metadata (both `/.well-known/` paths 404), so a client that receives the 401 has no way to discover
+where to get a token. These endpoints are unreachable to any agent not provisioned out of band.
+
+## Security
+
+- Vulnerability disclosure programme: https://impulse-dynamics.com/vulnerability-disclosure-program/
+- Product security: productsecurity@impulsedynamics.com (PGP 352E ECA7 1DE6 FAE5 2296 AD62 DE8D 942B FBC4 8AB7)
+- Infrastructure security: infrastructuresecurity@impulsedynamics.com (PGP 68F3 7CD0 246C E4B6 9402 0D3F 5BCB 0A7F 59B2 03B5)
+- Scope: medical devices, health software, and company infrastructure. Safe harbour offered; no
+  monetary bounty (credit on the website). Coordinated disclosure via ICS-CERT / CERT/CC / NCSC accepted.
+- Note: no `/.well-known/security.txt` is served (HTTP 404), so this real programme is invisible to
+  RFC 9116 scanners.
+
+## Company
+
+- Website: https://impulse-dynamics.com/
+- About: https://impulse-dynamics.com/company/
+- Governance: https://impulse-dynamics.com/company/governance/
+- Careers: https://impulse-dynamics.com/company/careers/
+- Contact: https://impulse-dynamics.com/contact-us/
+- Newsroom: https://news.impulse-dynamics.com/
+- RSS: https://impulse-dynamics.com/feed/
+- For patients: https://impulse-dynamics.com/patients/
+- For providers: https://impulse-dynamics.com/providers/
+- Clinical trials: https://impulse-dynamics.com/providers/clinical-trials/
+- Find a provider: https://impulse-dynamics.com/find-provider/
+- Technical documents (US): https://impulse-dynamics.com/us-technical-documents/
+- Safety information: https://impulse-dynamics.com/safety-information/
+- FDA indications and patient selection: https://impulse-dynamics.com/fda-indications-patient-selection/
+- Reimbursement: https://impulse-dynamics.com/updated-reimbursement/
+- Terms of use: https://impulse-dynamics.com/terms-of-use/
+- Privacy policy: https://impulse-dynamics.com/privacy-policy/
+- Data protection statement: https://impulse-dynamics.com/data-protection-statement/
+- Global site: https://impulse-dynamics.com/global/
+
+## Deliberately absent
+
+No OpenAPI published by the provider, no GraphQL, no AsyncAPI, no webhooks, no A2A agent card, no
+llms.txt, no status page, no changelog, no SDKs or packages in any registry, no GitHub organisation,
+no Postman collection, no trust centre, no security certifications, no API plans and no rate limits.
+Each was probed on 2026-08-23 and each absence is recorded in the artifacts above.

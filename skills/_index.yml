@@ -1,0 +1,20 @@
+generated: '2026-08-23'
+method: generated
+source: >-
+  Generated from openapi/_original/impulse-dynamics-wp-rest-openapi.yml, itself derived from the live
+  route-discovery document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
+  Every operationId referenced by these skills was grepped against that spec before being written.
+note: >-
+  Both skills are deliberately read-only. The only machine-readable surface this company operates is
+  its marketing site's WordPress REST API; the write half of that surface is authenticated site
+  administration and is not something an agent should be taught to reach for. No skill is written for
+  the MCP servers because their tool list is auth-gated and could not be read.
+skills:
+- file: impulse-dynamics-find-ccm-clinics.md
+  name: Find CCM therapy clinics from the Impulse Dynamics provider directory
+  api: openapi/_original/impulse-dynamics-wp-rest-openapi.yml
+  operations: [getWpV2ClinicLocator, getWpV2ClinicLocatorId, getWpV2ClinicCountry, getWpV2StateName]
+- file: impulse-dynamics-read-newsroom.md
+  name: Read the Impulse Dynamics newsroom and press coverage
+  api: openapi/_original/impulse-dynamics-wp-rest-openapi.yml
+  operations: [getWpV2News, getWpV2NewsId, getWpV2InTheMedia, getWpV2Media, getWpV2Search]

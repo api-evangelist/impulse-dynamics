@@ -64,5 +64,15 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Impulse Dynamics is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.hiive.com/securities/impulse-dynamics-stock
+Impulse Dynamics is a medical-device company that created Cardiac Contractility Modulation (CCM) therapy, delivered by the implantable Optimizer Smart and Optimizer Smart Mini pulse generators for patients with moderate-to-severe chronic heart failure who remain symptomatic despite guideline-directed medical therapy. Incorporated in 1997, with US headquarters in Marlton, New Jersey, the company won the first-ever FDA Breakthrough Device designation and received FDA approval for the Optimizer Smart in March 2019; the device has been CE marked since October 2016 and is now approved in more than 30 countries plus China.
+
+**Impulse Dynamics operates no developer programme.** There is no developer portal, API documentation, API reference, SDK, CLI, sandbox, pricing or sign-up, and nothing clinical or device-related is exposed as an API.
+
+This profile catalogues what does exist and is genuinely machine-readable:
+
+- **A live WordPress REST API** on the corporate website, advertising 420 routes across 30 namespaces at <https://impulse-dynamics.com/wp-json/>. 379 operations across the five WordPress core namespaces are captured as OpenAPI 3.1, derived verbatim from the site's own anonymous route-discovery document. It includes the company's own data: the CCM clinic/provider locator, the Optimizer technical-document library, careers, the newsroom and press coverage.
+- **Two Model Context Protocol servers** exposed by the WordPress MCP Adapter plugin. Both reject anonymous JSON-RPC with HTTP 401, and the host publishes no RFC 8414 or RFC 9728 metadata, so the token issuer is undiscoverable.
+- **A substantive vulnerability disclosure programme** covering medical devices, health software and infrastructure, with two PGP-published security contacts and safe-harbour terms — notable because it is *not* discoverable via `/.well-known/security.txt`, which returns 404.
+
+- Website: https://impulse-dynamics.com/
+- Secondary market listing: https://www.hiive.com/securities/impulse-dynamics-stock

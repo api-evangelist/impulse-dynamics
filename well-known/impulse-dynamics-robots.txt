@@ -1,0 +1,9 @@
+# START YOAST BLOCK
+# ---------------------------
+User-agent: *
+Disallow:
+
+Sitemap: https://impulse-dynamics.com/sitemap_index.xml
+Sitemap: https://impulse-dynamics.com/global/sitemap_index.xml
+# ---------------------------
+# END YOAST BLOCK

@@ -1,0 +1,43 @@
+generated: '2026-08-23'
+method: derived
+source: openapi/_original/impulse-dynamics-wp-rest-openapi.yml + live probes 2026-08-23
+versioning:
+  scheme: namespace-in-path
+  current: wp/v2
+  namespaces_live: [root, 'wp/v2', 'wp-abilities/v1', mcp, 'oembed/1.0']
+  discovery: https://impulse-dynamics.com/wp-json/
+  docs: null
+  note: >-
+    Versioning is inherited from WordPress core, not designed or published by Impulse Dynamics. The
+    company documents no versioning policy of its own.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    No deprecation policy is published and no RFC 8594 Sunset or Deprecation response header was
+    observed. NO Deprecation pointer is emitted — verified absence.
+deprecated_operations: []
+sla:
+  url: null
+  uptime_target: null
+  note: No SLA is published. This is a marketing website, not a commercial API product.
+status_page: null
+status_page_note: >-
+  status.impulse-dynamics.com does not resolve (DNS failure, 2026-08-23) and no status or uptime page
+  is linked from the site. NO StatusPage pointer is emitted — verified absence.
+changelog: null
+changelog_note: >-
+  No dated API changelog exists. The company publishes a newsroom (https://news.impulse-dynamics.com/
+  and the WordPress `news` custom post type) but it carries corporate and clinical announcements, not
+  API release notes, so no ChangeLog pointer is emitted for it.
+support:
+  channel: https://impulse-dynamics.com/contact-us/
+  note: General corporate contact only. There is no developer support channel, forum or community.
+maturity:
+  assessment: incidental
+  detail: >-
+    This surface exists because the company runs WordPress, not because it ships an API. It has no
+    owner-published contract, no versioning commitment, no deprecation policy, no status page and no
+    support channel. An integrator should treat every route as subject to change without notice
+    whenever the site's theme or plugins are updated.

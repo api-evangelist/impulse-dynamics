@@ -1,0 +1,68 @@
+generated: '2026-08-23'
+method: probed
+source: live probes of the impulse-dynamics.com host on 2026-08-23
+summary: >-
+  Every RFC 8615 /.well-known/ path probed on the only host this company operates returned a
+  genuine HTTP 404 (548-byte WordPress 404 page, not a soft-200 catch-all). No WellKnown and no
+  SecurityTxt pointer is emitted for this provider: this file records a verified ABSENCE, not a
+  presence. The absence is notable because the company DOES run a real vulnerability disclosure
+  programme with two PGP-published security contacts — it is simply published as an HTML page
+  instead of at /.well-known/security.txt (see security/impulse-dynamics-vulnerability-disclosure.yml).
+hit_count: 0
+hosts:
+- host: https://impulse-dynamics.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+soft_404_control:
+  note: >-
+    All eight probes returned an identical 548-byte text/html body with HTTP 404. This host is NOT a
+    200-answering SPA catch-all, so the 404s are trustworthy negatives rather than an artefact of the
+    probe.
+  bytes: 548
+  content_type: text/html
+oauth_metadata_gap: >-
+  The two Model Context Protocol servers on this host (see mcp/impulse-dynamics-mcp.yml) both reject
+  anonymous JSON-RPC with HTTP 401, but neither /.well-known/oauth-authorization-server (RFC 8414) nor
+  /.well-known/oauth-protected-resource (RFC 9728) is served, and the path-suffixed variants for the
+  mcp-oauth-server resource 404 as well. An MCP client therefore cannot discover the token issuer or
+  the scopes required, which makes these servers unreachable to any agent that is not already
+  provisioned out of band.
+other_documents:
+- path: /robots.txt
+  status: 200
+  note: >-
+    Served via 301 from /robots.txt to /?robots=1. Saved as impulse-dynamics-robots.txt for evidence.
+    It is a stock Yoast SEO block that allows all user agents and lists two sitemaps. It carries NO
+    AI-preference, Content-Signal or AI-crawler directives, so NO ContentSignal pointer is emitted —
+    a plain allow-all robots.txt is not a consent signal.
+  file: impulse-dynamics-robots.txt
+- path: /llms.txt
+  status: 302
+  note: >-
+    Redirects to the site root (https://impulse-dynamics.com/) rather than 404ing — a soft-404. No
+    llms.txt is published. The same soft-404 redirect answers /openapi.json, /openapi.yaml,
+    /swagger.json and /api-docs, so none of those is a spec either.
+  file: null

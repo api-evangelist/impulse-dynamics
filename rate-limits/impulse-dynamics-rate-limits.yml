@@ -1,0 +1,31 @@
+generated: '2026-08-23'
+method: probed
+source: live responses from https://impulse-dynamics.com/wp-json/ observed 2026-08-23
+limit_count: 0
+limits: []
+headers: []
+exhaustion_status: null
+note: >-
+  No rate limits are documented and none were observed. Impulse Dynamics publishes no API
+  documentation of any kind, so there is no stated limit to record. Live responses from the WordPress
+  REST surface carried NO RateLimit-*, X-RateLimit-* or Retry-After header on any of the routes
+  probed (/wp-json/, /wp-json/wp/v2, /wp-json/wp/v2/posts, /wp-json/wp/v2/pages,
+  /wp-json/tribe/events/v1/events, /wp-json/mcp and both MCP servers), so an agent gets no runtime
+  budget signal whatsoever and must back off blindly. limit_count 0 is an honest measured zero.
+  Unmeasured but likely: the host sits behind a WP Engine / Flywheel edge (the discovery document
+  advertises a flywheel/v1 namespace), which typically applies undisclosed edge throttling — so
+  absence of a header is not a promise of unlimited throughput.
+probed:
+- url: https://impulse-dynamics.com/wp-json/
+  status: 200
+  rate_limit_headers: none
+- url: https://impulse-dynamics.com/wp-json/wp/v2/posts?per_page=1
+  status: 200
+  rate_limit_headers: none
+- url: https://impulse-dynamics.com/wp-json/mcp/mcp-oauth-server
+  status: 401
+  rate_limit_headers: none
+pagination_cap:
+  note: >-
+    The only hard numeric ceiling published anywhere on this surface is the pagination cap: per_page
+    is bounded at 100 by the contract itself. That is a page-size limit, not a rate limit.
