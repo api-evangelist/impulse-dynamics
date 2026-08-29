@@ -15,6 +15,18 @@ description: >-
   Protocol servers, and because the company publishes a substantive vulnerability disclosure
   programme with two PGP-published security contacts covering its medical devices, health software
   and infrastructure.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://impulse-dynamics.com/wp-content/uploads/2023/05/Impulse-Dynamics_Logo_1.0.png
 url: https://raw.githubusercontent.com/api-evangelist/impulse-dynamics/refs/heads/main/apis.yml
 x-type: company
