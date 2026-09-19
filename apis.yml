@@ -177,8 +177,6 @@ common:
   url: https://impulse-dynamics.com/vulnerability-disclosure-program/
 - type: SecondaryMarket
   url: https://www.hiive.com/securities/impulse-dynamics-stock
-- type: OpenAPI
-  url: openapi/_original/impulse-dynamics-wp-rest-openapi.yml
 - type: Overlay
   url: overlays/impulse-dynamics-wp-rest-overlay.yaml
 - type: MCPServer
