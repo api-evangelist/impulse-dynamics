@@ -1,15 +1,9 @@
 openapi: 3.2.0
 info:
-  title: Impulse Dynamics Wp Abilities/v1 API
-  version: 1.0.0
-  summary: WordPress Abilities API - registry of named abilities an agent may discover and run. Read access is capability-gated (observed HTTP 401 anonymously on 2026-08-23).
-  description: 'Derived verbatim from the route-discovery document the Impulse Dynamics web server publishes at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200). Every path, method, parameter name, type, default and enum in this document was read from that live response; nothing was invented.
-
-
-    This is the content-management API of the corporate marketing site, not a therapeutic, clinical or device API. Impulse Dynamics is a medical-device company (Cardiac Contractility Modulation therapy, delivered by the Optimizer Smart implantable pulse generator) and publishes no developer product API, no developer portal and no API reference. The surface is catalogued because it is a real, live, self-describing HTTP contract on the provider''s own host, and because the same WordPress install exposes two Model Context Protocol servers under the `mcp` namespace (see mcp/impulse-dynamics-mcp.yml).
-
-
-    Only the WordPress core namespaces are represented (`root`, `wp/v2`, `wp-abilities/v1`, `mcp`, `oembed/1.0`). The 25 third-party plugin namespaces advertised by the same discovery document (ai1wm/v1, akismet/v1, cky/v1, cleantalk-antispam/v1, code-snippets/v1, cptui/v1, divi/v1, docs/v1, elicus/v1, flywheel/v1, gf/v2, gravity-pdf/v1, gravityview/v1, gwiz/v1, redirection/v1, sps/v1, tec/v1, tec/v2/onboarding, tribe/event-aggregator/v1, tribe/events/v1, tribe/views/v2, wp-block-editor/v1, wp-rocket/v1, wp-site-health/v1, yoast/v1) are intentionally excluded as vendor plugin internals.'
+  title: Impulse Dynamics WordPress REST Wp Abilities/v1 API
+  version: wp/v2
+  summary: The live WordPress REST API served by the Impulse Dynamics corporate website.
+  description: Derived verbatim from the route-discovery document the Impulse Dynamics web server publishes at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
   x-derived-from: https://impulse-dynamics.com/wp-json/
   x-derived-on: '2026-08-23'
   x-apievangelist-method: derived
@@ -119,8 +113,8 @@ paths:
         type: string
     get:
       operationId: getWpAbilitiesV1AbilitiesName
-      summary: GET /wp-abilities/v1/abilities/(?P<name>[a-zA-Z0-9\-\/]+)
-      description: WordPress REST API route `/wp-abilities/v1/abilities/(?P<name>[a-zA-Z0-9\-\/]+)` in namespace `wp-abilities/v1`, as advertised by the live route-discovery document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
+      summary: GET /wp-abilities/v1/abilities/(?P[a-zA-Z0-9\-\/]+)
+      description: WordPress REST API route `/wp-abilities/v1/abilities/(?P[a-zA-Z0-9\-\/]+)` in namespace `wp-abilities/v1`, as advertised by the live route-discovery document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
       tags:
       - wp-abilities/v1
       responses:
@@ -150,8 +144,8 @@ paths:
         type: string
     get:
       operationId: getWpAbilitiesV1AbilitiesNameRun
-      summary: GET /wp-abilities/v1/abilities/(?P<name>[a-zA-Z0-9\-\/]+?)/run
-      description: WordPress REST API route `/wp-abilities/v1/abilities/(?P<name>[a-zA-Z0-9\-\/]+?)/run` in namespace `wp-abilities/v1`, as advertised by the live route-discovery document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
+      summary: GET /wp-abilities/v1/abilities/(?P[a-zA-Z0-9\-\/]+?)/run
+      description: WordPress REST API route `/wp-abilities/v1/abilities/(?P[a-zA-Z0-9\-\/]+?)/run` in namespace `wp-abilities/v1`, as advertised by the live route-discovery document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
       tags:
       - wp-abilities/v1
       responses:
@@ -181,8 +175,8 @@ paths:
         description: Input parameters for the ability execution.
     post:
       operationId: postWpAbilitiesV1AbilitiesNameRun
-      summary: POST /wp-abilities/v1/abilities/(?P<name>[a-zA-Z0-9\-\/]+?)/run
-      description: WordPress REST API route `/wp-abilities/v1/abilities/(?P<name>[a-zA-Z0-9\-\/]+?)/run` in namespace `wp-abilities/v1`, as advertised by the live route-discovery document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
+      summary: POST /wp-abilities/v1/abilities/(?P[a-zA-Z0-9\-\/]+?)/run
+      description: WordPress REST API route `/wp-abilities/v1/abilities/(?P[a-zA-Z0-9\-\/]+?)/run` in namespace `wp-abilities/v1`, as advertised by the live route-discovery document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
       tags:
       - wp-abilities/v1
       responses:
@@ -216,8 +210,8 @@ paths:
                   description: Input parameters for the ability execution.
     put:
       operationId: putWpAbilitiesV1AbilitiesNameRun
-      summary: PUT /wp-abilities/v1/abilities/(?P<name>[a-zA-Z0-9\-\/]+?)/run
-      description: WordPress REST API route `/wp-abilities/v1/abilities/(?P<name>[a-zA-Z0-9\-\/]+?)/run` in namespace `wp-abilities/v1`, as advertised by the live route-discovery document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
+      summary: PUT /wp-abilities/v1/abilities/(?P[a-zA-Z0-9\-\/]+?)/run
+      description: WordPress REST API route `/wp-abilities/v1/abilities/(?P[a-zA-Z0-9\-\/]+?)/run` in namespace `wp-abilities/v1`, as advertised by the live route-discovery document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
       tags:
       - wp-abilities/v1
       responses:
@@ -251,8 +245,8 @@ paths:
                   description: Input parameters for the ability execution.
     patch:
       operationId: patchWpAbilitiesV1AbilitiesNameRun
-      summary: PATCH /wp-abilities/v1/abilities/(?P<name>[a-zA-Z0-9\-\/]+?)/run
-      description: WordPress REST API route `/wp-abilities/v1/abilities/(?P<name>[a-zA-Z0-9\-\/]+?)/run` in namespace `wp-abilities/v1`, as advertised by the live route-discovery document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
+      summary: PATCH /wp-abilities/v1/abilities/(?P[a-zA-Z0-9\-\/]+?)/run
+      description: WordPress REST API route `/wp-abilities/v1/abilities/(?P[a-zA-Z0-9\-\/]+?)/run` in namespace `wp-abilities/v1`, as advertised by the live route-discovery document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
       tags:
       - wp-abilities/v1
       responses:
@@ -286,8 +280,8 @@ paths:
                   description: Input parameters for the ability execution.
     delete:
       operationId: deleteWpAbilitiesV1AbilitiesNameRun
-      summary: DELETE /wp-abilities/v1/abilities/(?P<name>[a-zA-Z0-9\-\/]+?)/run
-      description: WordPress REST API route `/wp-abilities/v1/abilities/(?P<name>[a-zA-Z0-9\-\/]+?)/run` in namespace `wp-abilities/v1`, as advertised by the live route-discovery document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
+      summary: DELETE /wp-abilities/v1/abilities/(?P[a-zA-Z0-9\-\/]+?)/run
+      description: WordPress REST API route `/wp-abilities/v1/abilities/(?P[a-zA-Z0-9\-\/]+?)/run` in namespace `wp-abilities/v1`, as advertised by the live route-discovery document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
       tags:
       - wp-abilities/v1
       responses:
@@ -375,8 +369,8 @@ paths:
         type: string
     get:
       operationId: getWpAbilitiesV1CategoriesSlug
-      summary: GET /wp-abilities/v1/categories/(?P<slug>[a-z0-9]+(?:-[a-z0-9]+)*)
-      description: WordPress REST API route `/wp-abilities/v1/categories/(?P<slug>[a-z0-9]+(?:-[a-z0-9]+)*)` in namespace `wp-abilities/v1`, as advertised by the live route-discovery document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
+      summary: GET /wp-abilities/v1/categories/(?P[a-z0-9]+(?:-[a-z0-9]+)*)
+      description: WordPress REST API route `/wp-abilities/v1/categories/(?P[a-z0-9]+(?:-[a-z0-9]+)*)` in namespace `wp-abilities/v1`, as advertised by the live route-discovery document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
       tags:
       - wp-abilities/v1
       responses:

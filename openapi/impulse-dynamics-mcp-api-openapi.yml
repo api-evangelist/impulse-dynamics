@@ -1,15 +1,9 @@
 openapi: 3.2.0
 info:
-  title: Impulse Dynamics MCP API
-  version: 1.0.0
-  summary: Model Context Protocol servers exposed by the WordPress MCP adapter. Both servers require authentication (observed HTTP 401 anonymously on 2026-08-23).
-  description: 'Derived verbatim from the route-discovery document the Impulse Dynamics web server publishes at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200). Every path, method, parameter name, type, default and enum in this document was read from that live response; nothing was invented.
-
-
-    This is the content-management API of the corporate marketing site, not a therapeutic, clinical or device API. Impulse Dynamics is a medical-device company (Cardiac Contractility Modulation therapy, delivered by the Optimizer Smart implantable pulse generator) and publishes no developer product API, no developer portal and no API reference. The surface is catalogued because it is a real, live, self-describing HTTP contract on the provider''s own host, and because the same WordPress install exposes two Model Context Protocol servers under the `mcp` namespace (see mcp/impulse-dynamics-mcp.yml).
-
-
-    Only the WordPress core namespaces are represented (`root`, `wp/v2`, `wp-abilities/v1`, `mcp`, `oembed/1.0`). The 25 third-party plugin namespaces advertised by the same discovery document (ai1wm/v1, akismet/v1, cky/v1, cleantalk-antispam/v1, code-snippets/v1, cptui/v1, divi/v1, docs/v1, elicus/v1, flywheel/v1, gf/v2, gravity-pdf/v1, gravityview/v1, gwiz/v1, redirection/v1, sps/v1, tec/v1, tec/v2/onboarding, tribe/event-aggregator/v1, tribe/events/v1, tribe/views/v2, wp-block-editor/v1, wp-rocket/v1, wp-site-health/v1, yoast/v1) are intentionally excluded as vendor plugin internals.'
+  title: Impulse Dynamics WordPress REST MCP API
+  version: wp/v2
+  summary: The live WordPress REST API served by the Impulse Dynamics corporate website.
+  description: Derived verbatim from the route-discovery document the Impulse Dynamics web server publishes at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
   x-derived-from: https://impulse-dynamics.com/wp-json/
   x-derived-on: '2026-08-23'
   x-apievangelist-method: derived
@@ -17,7 +11,7 @@ servers:
 - url: https://impulse-dynamics.com
   description: Production
 tags:
-- name: mcp
+- name: MCP
   description: Model Context Protocol servers exposed by the WordPress MCP adapter. Both servers require authentication (observed HTTP 401 anonymously on 2026-08-23).
 paths:
   /wp-json/mcp:
@@ -26,7 +20,7 @@ paths:
       summary: GET /mcp
       description: WordPress REST API route `/mcp` in namespace `mcp`, as advertised by the live route-discovery document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
       tags:
-      - mcp
+      - MCP
       responses:
         '200':
           description: Success
@@ -62,7 +56,7 @@ paths:
       summary: POST /mcp/mcp-adapter-default-server
       description: WordPress REST API route `/mcp/mcp-adapter-default-server` in namespace `mcp`, as advertised by the live route-discovery document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
       tags:
-      - mcp
+      - MCP
       responses:
         '200':
           description: Success
@@ -88,7 +82,7 @@ paths:
       summary: GET /mcp/mcp-adapter-default-server
       description: WordPress REST API route `/mcp/mcp-adapter-default-server` in namespace `mcp`, as advertised by the live route-discovery document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
       tags:
-      - mcp
+      - MCP
       responses:
         '200':
           description: Success
@@ -114,7 +108,7 @@ paths:
       summary: DELETE /mcp/mcp-adapter-default-server
       description: WordPress REST API route `/mcp/mcp-adapter-default-server` in namespace `mcp`, as advertised by the live route-discovery document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
       tags:
-      - mcp
+      - MCP
       responses:
         '200':
           description: Success
@@ -141,7 +135,7 @@ paths:
       summary: POST /mcp/mcp-oauth-server
       description: WordPress REST API route `/mcp/mcp-oauth-server` in namespace `mcp`, as advertised by the live route-discovery document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
       tags:
-      - mcp
+      - MCP
       responses:
         '200':
           description: Success
@@ -167,7 +161,7 @@ paths:
       summary: GET /mcp/mcp-oauth-server
       description: WordPress REST API route `/mcp/mcp-oauth-server` in namespace `mcp`, as advertised by the live route-discovery document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
       tags:
-      - mcp
+      - MCP
       responses:
         '200':
           description: Success
@@ -193,7 +187,7 @@ paths:
       summary: DELETE /mcp/mcp-oauth-server
       description: WordPress REST API route `/mcp/mcp-oauth-server` in namespace `mcp`, as advertised by the live route-discovery document at https://impulse-dynamics.com/wp-json/ (fetched 2026-08-23, HTTP 200).
       tags:
-      - mcp
+      - MCP
       responses:
         '200':
           description: Success
