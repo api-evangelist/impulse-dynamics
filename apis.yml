@@ -57,7 +57,7 @@ tags:
 - Cardiology
 - Heart Failure
 - Implantable Devices
-- Health Technology
+- Health Tech
 - Life Sciences
 - Clinical Trials
 - MCP
@@ -75,25 +75,20 @@ tags_raw:
 - Model Context Protocol
 - WordPress
 apis:
-- aid: impulse-dynamics:impulse-dynamics-wp-v2-api
-  name: Impulse Dynamics wp/v2 API
-  description: >-
-    WordPress core content API of the corporate website (posts, pages, media, taxonomies, users,
-    settings) plus this company's own custom post types: the CCM clinic/provider locator, the
-    Optimizer technical-document library, careers, the newsroom and press coverage. 357 operations.
-  humanURL: https://impulse-dynamics.com/wp-json/
-  baseURL: https://impulse-dynamics.com/wp-json/
+- aid: impulse-dynamics:impulse-dynamics-com-website-wordpress-rest
+  name: Impulse Dynamics Website (WordPress REST)
+  description: 'The public WordPress REST API (wp-json) of the Impulse Dynamics website at impulse-dynamics.com:
+    the route index of the site''s content management system, catalogued as one site surface rather than
+    as separate APIs.'
+  baseURL: https://impulse-dynamics.com/wp-json
   tags:
-  - wp/v2
-  tags_raw:
-  - wp/v2
+  - WordPress
+  x-surface: platform-generated
   properties:
-  - type: OpenAPI
-    url: openapi/impulse-dynamics-wp-v2-api-openapi.yml
-  - type: DataModel
-    url: data-model/impulse-dynamics-data-model.yml
-  - type: AgentSkill
-    url: skills/_index.yml
+  - type: Documentation
+    url: https://impulse-dynamics.com/wp-json
+  x-platform: wordpress
+  x-platform-surface: rest
 - aid: impulse-dynamics:impulse-dynamics-mcp-api
   name: Impulse Dynamics MCP API
   description: >-
@@ -113,40 +108,9 @@ apis:
     url: mcp/impulse-dynamics-mcp.yml
   - type: ToolCrosswalk
     url: mcp/impulse-dynamics-tool-crosswalk.yml
-- aid: impulse-dynamics:impulse-dynamics-wp-abilities-v1-api
-  name: Impulse Dynamics wp-abilities/v1 API
-  description: >-
-    WordPress Abilities API — the registry of named abilities the MCP adapter draws its tools from.
-    Capability-gated: HTTP 401 rest_forbidden anonymously.
-  humanURL: https://impulse-dynamics.com/wp-json/wp-abilities/v1
-  baseURL: https://impulse-dynamics.com/wp-json/
-  tags:
-  - wp-abilities/v1
-  properties:
-  - type: OpenAPI
-    url: openapi/impulse-dynamics-wp-abilities-v1-api-openapi.yml
-- aid: impulse-dynamics:impulse-dynamics-oembed-1-0-api
-  name: Impulse Dynamics oEmbed/1.0 API
-  description: oEmbed discovery and proxy endpoints.
-  humanURL: https://impulse-dynamics.com/wp-json/oembed/1.0
-  baseURL: https://impulse-dynamics.com/wp-json/
-  tags:
-  - oembed/1.0
-  properties:
-  - type: OpenAPI
-    url: openapi/impulse-dynamics-oembed-1-0-api-openapi.yml
-- aid: impulse-dynamics:impulse-dynamics-root-api
-  name: Impulse Dynamics Root API
-  description: REST API index / namespace discovery — the anonymous route-discovery document this whole profile was derived from.
-  humanURL: https://impulse-dynamics.com/wp-json/
-  baseURL: https://impulse-dynamics.com/wp-json/
-  tags:
-  - Root
-  tags_raw:
-  - root
-  properties:
-  - type: OpenAPI
-    url: openapi/impulse-dynamics-root-api-openapi.yml
+  x-surface: platform-generated
+  x-platform: wordpress
+  x-platform-surface: rest
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
