@@ -64,15 +64,122 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Impulse Dynamics is a medical-device company that created Cardiac Contractility Modulation (CCM) therapy, delivered by the implantable Optimizer Smart and Optimizer Smart Mini pulse generators for patients with moderate-to-severe chronic heart failure who remain symptomatic despite guideline-directed medical therapy. Incorporated in 1997, with US headquarters in Marlton, New Jersey, the company won the first-ever FDA Breakthrough Device designation and received FDA approval for the Optimizer Smart in March 2019; the device has been CE marked since October 2016 and is now approved in more than 30 countries plus China.
+Impulse Dynamics is a medical-device company that created Cardiac Contractility Modulation (CCM) therapy, delivered by the implantable Optimizer Smart and Optimizer Smart Mini pulse generators for patients with moderate-to-severe chronic heart failure who remain symptomatic despite guideline-directed medical therapy. Incorporated in 1997, with US headquarters in Marlton, New Jersey, the company won the first-ever FDA Breakthrough Device designation and received FDA approval for the Optimizer Smart in March 2019; the device has been CE marked since October 2016 and is now approved in more than 30 countries plus China. Impulse Dynamics operates no developer programme: there is no developer portal, API documentation, API reference, SDK, CLI, sandbox, pricing or sign-up, and nothing clinical or device-related is exposed as an API. It is catalogued here because its corporate website runs a live, anonymous, self-describing WordPress REST API advertising 420 routes across 30 namespaces, because that same install exposes two Model Context Protocol servers, and because the company publishes a substantive vulnerability disclosure programme with two PGP-published security contacts covering its medical devices, health software and infrastructure.
 
-**Impulse Dynamics operates no developer programme.** There is no developer portal, API documentation, API reference, SDK, CLI, sandbox, pricing or sign-up, and nothing clinical or device-related is exposed as an API.
+**Areas:** Company · Medical Devices · Healthcare · Cardiology · Heart Failure · Implantable Devices · Health Tech · Life Sciences · Clinical Trials · MCP · WordPress
 
-This profile catalogues what does exist and is genuinely machine-readable:
+## Impulse Dynamics on APIs.io
 
-- **A live WordPress REST API** on the corporate website, advertising 420 routes across 30 namespaces at <https://impulse-dynamics.com/wp-json/>. 379 operations across the five WordPress core namespaces are captured as OpenAPI 3.1, derived verbatim from the site's own anonymous route-discovery document. It includes the company's own data: the CCM clinic/provider locator, the Optimizer technical-document library, careers, the newsroom and press coverage.
-- **Two Model Context Protocol servers** exposed by the WordPress MCP Adapter plugin. Both reject anonymous JSON-RPC with HTTP 401, and the host publishes no RFC 8414 or RFC 9728 metadata, so the token issuer is undiscoverable.
-- **A substantive vulnerability disclosure programme** covering medical devices, health software and infrastructure, with two PGP-published security contacts and safe-harbour terms — notable because it is *not* discoverable via `/.well-known/security.txt`, which returns 404.
+Everything profiled for Impulse Dynamics is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/impulse-dynamics/](https://apis.io/providers/impulse-dynamics/)** — or go straight to one of the APIs or properties below.
 
-- Website: https://impulse-dynamics.com/
-- Secondary market listing: https://www.hiive.com/securities/impulse-dynamics-stock
+### APIs (2)
+
+- [Impulse Dynamics Website (WordPress REST)](https://apis.io/apis/impulse-dynamics/impulse-dynamics-com-website-wordpress-rest/) — The public WordPress REST API (wp-json) of the Impulse Dynamics website at impulse-dynamics.com: the route index of the site's content management system,…
+- [Impulse Dynamics MCP API](https://apis.io/apis/impulse-dynamics/impulse-dynamics-mcp-api/) — Two Model Context Protocol servers exposed by the WordPress MCP Adapter plugin on the corporate host. Both reject anonymous JSON-RPC with HTTP 401, and the…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [impulse-dynamics-mcp.yml](https://apis.io/servers/impulse-dynamics/impulse-dynamics-mcp-yml/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Impulse Dynamics Agentic Access](https://apis.io/agentic-access/impulse-dynamics/impulse-dynamics-agentic-access/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Impulse Dynamics Wp Rest Overlay](https://apis.io/overlays/impulse-dynamics/impulse-dynamics-wp-rest-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Impulse Dynamics Authentication](https://apis.io/security/impulse-dynamics/impulse-dynamics-authentication/)
+- [Impulse Dynamics Domain Security](https://apis.io/security/impulse-dynamics/impulse-dynamics-domain-security/)
+- [Impulse Dynamics Vulnerability Disclosure](https://apis.io/security/impulse-dynamics/impulse-dynamics-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Impulse Dynamics Plans Pricing](https://apis.io/plans/impulse-dynamics/impulse-dynamics-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Impulse Dynamics Rate Limits](https://apis.io/rate-limits/impulse-dynamics/impulse-dynamics-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://impulse-dynamics.com/)
+- [Blog](https://news.impulse-dynamics.com/)
+- [Security](https://impulse-dynamics.com/vulnerability-disclosure-program/)
+- [Terms of service](https://impulse-dynamics.com/terms-of-use/)
+- [Privacy policy](https://impulse-dynamics.com/privacy-policy/)
+
+## API Evangelist rating
+
+**Kin Score 16.8** — emerging · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.7 |
+| Contract quality | 17.0 |
+| Contract governance | 4.5 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 25.6 |
+| Access clarity | 0.0 |
+
+**Agent readiness 30.1** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | platform (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 18.0** — Health
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/impulse-dynamics/](https://apis.io/providers/impulse-dynamics/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Impulse Dynamics: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/impulse-dynamics/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
